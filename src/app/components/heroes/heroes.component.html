@@ -1,0 +1,44 @@
+<h1>Listado de Héroes</h1>
+<hr />
+
+<div class="row">
+  <div class="col text-right">
+    <button [routerLink]="['/heroe/nuevo']" class="btn btn-primary">
+      <i class="fab fa-superpowers"></i> Agregar
+    </button>
+  </div>
+</div>
+
+<table class="table mt-4 text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Poder</th>
+      <th>Vivo</th>
+      <th>Tools</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let heroe of heroes; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ heroe.nombre }}</td>
+      <td>{{ heroe.poder }}</td>
+      <td>
+        <label *ngIf="heroe.vivo" class="badge badge-success">Vivo</label>
+        <label *ngIf="!heroe.vivo" class="badge badge-danger">Muerto</label>
+      </td>
+      <td>Otto</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="loading" class="alert alert-info text-center" role="alert">
+  <h4 class="alert-heading">Cargando</h4>
+  <i class="fas fa-spinner fa-spin fa-2x"></i>
+  <p class="mb-0">Espere por favor...</p>
+</div>
+<div *ngIf="registros" class="alert alert-warning text-center" role="alert">
+  <h4 class="alert-heading">No Hay Registros</h4>
+  <i class="fas fa-exclamation-triangle fa-2x"></i>
+</div>
