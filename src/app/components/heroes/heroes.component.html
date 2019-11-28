@@ -28,7 +28,16 @@
         <label *ngIf="heroe.vivo" class="badge badge-success">Vivo</label>
         <label *ngIf="!heroe.vivo" class="badge badge-danger">Muerto</label>
       </td>
-      <td>Otto</td>
+      <td>
+
+        <button [routerLink]="['/heroe',heroe.id]" class="btn btn-info mr-1">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button (click)="borrarHeroe(heroe.id , i)" class="btn btn-danger">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+
+      </td>
     </tr>
   </tbody>
 </table>
@@ -38,7 +47,7 @@
   <i class="fas fa-spinner fa-spin fa-2x"></i>
   <p class="mb-0">Espere por favor...</p>
 </div>
-<div *ngIf="registros" class="alert alert-warning text-center" role="alert">
+<div *ngIf="registros" class="alert alert-warning text-center animated fadeIn" role="alert">
   <h4 class="alert-heading">No Hay Registros</h4>
   <i class="fas fa-exclamation-triangle fa-2x"></i>
 </div>

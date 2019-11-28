@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from "@angular/forms";
 import { HeroesService } from 'src/app/services/heroes.service';
 import Swal from 'sweetalert2'
+import { ActivatedRoute } from '@angular/router';
+import { HeroeModel } from 'src/app/models/heroe.model';
 
 @Component({
   selector: 'app-heroe',
@@ -12,7 +14,7 @@ export class HeroeComponent implements OnInit {
 
   vivo: boolean = true;
 
-  constructor(private fb: FormBuilder, private heroeService: HeroesService) {
+  constructor(private fb: FormBuilder, private heroeService: HeroesService, private router: ActivatedRoute) {
   }
 
   form = this.fb.group({
@@ -23,7 +25,17 @@ export class HeroeComponent implements OnInit {
   })
 
   ngOnInit() {
-
+    this.router.params
+      .subscribe(data => {
+        if (data['id'] != 'nuevo') {
+          this.heroeService.getHeroe(data['id'])
+            .subscribe((resp: HeroeModel) => {
+              resp.id = data['id'];
+              this.vivo = resp.vivo;
+              this.form.setValue(resp);
+            })
+        }
+      })
   }
 
   guardar() {
